@@ -1,41 +1,3 @@
-// server/controllers/aiController.js
-// const { Configuration, OpenAIApi } = require('openai');
-// const configuration = new Configuration({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-// const openai = new OpenAIApi(configuration);
-
-// exports.generateHealthTips = async (req, res) => {
-//   try {
-//     const user = req.user;
-//     const prompt = `Generate personalized health tips for a ${user.age}-year-old ${user.gender} with ${user.healthConditions.join(', ')}. Fitness goals: ${user.fitnessGoals.join(', ')}. Provide workout and diet suggestions.`;
-    
-//     const response = await openai.createCompletion({
-//       model: "text-davinci-003",
-//       prompt: prompt,
-//       max_tokens: 500
-//     });
-
-//     res.json({ tips: response.data.choices[0].text });
-//   } catch (error) {
-//     res.status(500).json({ error: 'AI service error' });
-//   }
-// };
-
-// exports.chatResponse = async (req, res) => {
-//   try {
-//     const { message } = req.body;
-//     const response = await openai.createCompletion({
-//       model: "text-davinci-003",
-//       prompt: `As a health assistant, respond to this query: ${message}. Provide general advice only.`,
-//       max_tokens: 250
-//     });
-
-//     res.json({ reply: response.data.choices[0].text });
-//   } catch (error) {
-//     res.status(500).json({ error: 'Chat service error' });
-//   }
-// };
 
 
 
@@ -44,7 +6,7 @@ const User = require('../Models/User')
 // Configure OpenRouter client
 const openai = new OpenAI({
     baseURL: "https://openrouter.ai/api/v1",
-    apiKey: process.env.OPENROUTER_API_KEY, // Should be set in .env
+    apiKey: "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", // Should be set in .env
     defaultHeaders: {
       "HTTP-Referer": process.env.SITE_URL, // Set in .env
       "X-Title": process.env.APP_NAME, // Set in .env
