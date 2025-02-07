@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Chat from './pages/Chat';  // ✅ Chat should be accessible to everyone
 import Contact from './pages/Contact';
+import Adds from './adds/googleAds'
 import ProtectedRoute from './components/ProtectedRoute';
 import Women from './pages/Women';
 import Men from './pages/Men';
@@ -20,6 +21,7 @@ import './App.css';  // Create this file for global styles
 function App() {
   return (
     <Router>
+      <Adds></Adds>
       <AuthProvider>
         <div className="app-container">
           <Navbar />
