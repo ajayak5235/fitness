@@ -1,0 +1,81 @@
+/* app.css */
+
+/* Container Styles */
+.home-container {
+  padding: 40px;  /* Added top padding to give space from the top */
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Add extra space from the top */
+}
+
+/* Carousel Styles */
+.carousel {
+  width: 90%; /* Reduced width of carousel */
+  height: 60vh; /* Reduced height of carousel to 50% of viewport height */
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 0 auto 10px auto; /* Reduced bottom margin for closer distance to the content */
+  position: relative;
+}
+
+
+.carousel-image {
+  width: 90%;
+  height: 80%;
+  object-fit: cover;
+  transition: transform 1s ease;
+}
+
+/* Content Section Styles */
+.content {
+  padding: 2px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: -10px;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.paragraph {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+
+.dot-flashing {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  animation: dotFlashing 1.5s infinite linear;
+}
+
+@keyframes dotFlashing {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Make scrollbar very thin */
+.chatWindow::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatWindow::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.chatWindow::-webkit-scrollbar-track {
+  background: transparent;
+}
