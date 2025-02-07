@@ -6,7 +6,7 @@ const User = require('../Models/User')
 // Configure OpenRouter client
 const openai = new OpenAI({
     baseURL: "https://openrouter.ai/api/v1",
-    apiKey: "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", // Should be set in .env
+    apiKey: "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", // Should be set in .env
     defaultHeaders: {
       "HTTP-Referer": process.env.SITE_URL, // Set in .env
       "X-Title": process.env.APP_NAME, // Set in .env
