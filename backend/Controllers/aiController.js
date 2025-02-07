@@ -1,82 +1,73 @@
+require('dotenv').config(); 
 
-
-
-const OpenAI = require("openai")
-const User = require('../Models/User')
-// Configure OpenRouter client
+const OpenAI = require("openai");
+const User = require('../Models/User');
+console.log("ENV",process.env.OPENROUTER_API_KEY)
+// Configure OpenRouter client (or OpenAI client)
 const openai = new OpenAI({
-    baseURL: "https://openrouter.ai/api/v1",
-    apiKey: "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", // Should be set in .env
-    defaultHeaders: {
-      "HTTP-Referer": process.env.SITE_URL, // Set in .env
-      "X-Title": process.env.APP_NAME, // Set in .env
-    }
-  });
-  
-  exports.generateHealthTips = async (req, res) => {
-    try {
-      const user = req.user; // Now this contains full user details
-      console.log('User Details:', user);
-  
-      const healthConditions = user.healthConditions.length > 0 ? user.healthConditions.join(', ') : 'none';
-      const fitnessGoals = user.fitnessGoals.length > 0 ? user.fitnessGoals.join(', ') : 'general fitness';
-  
-      const completion = await openai.chat.completions.create({
-        model: "mistralai/mistral-small",
-        messages: [
-          {
-            role: "system",
-            content: "You are a professional health advisor. Provide personalized workout and diet suggestions."
-          },
-          {
-            role: "user",
-            content: `Generate health tips for a ${user.age}-year-old ${user.gender} with health conditions: ${healthConditions}. Fitness goals: ${fitnessGoals}.`
-          }
-        ]
-      });
-  
-      res.json({ tips: completion.choices[0].message.content });
-    } catch (error) {
-      console.error('AI Error:', error);
-      res.status(500).json({ error: 'AI service error' });
-    }
-  };
-  
-  
-  exports.chatResponse = async (req, res) => {
-    try {
-      const { message } = req.body;
-  
-      const completion = await openai.chat.completions.create({
-        model: "mistralai/mistral-small",
-        messages: [
-          {
-            role: "system",
-            content: "You are a health assistant. Provide general, safe advice about health, workouts, and nutrition."
-          },
-          {
-            role: "user",
-            content: message
-          }
-        ]
-      });
-  
-      const reply = completion.choices[0].message.content;
-      
-      // if (req.user && message && reply) {
-      //   await exports.saveChatHistory(req.user, [
-      //     { role: "user", content: message },
-      //     { role: "assistant", content: reply }
-      //   ]);
-      // }
-  
-      res.json({ reply });
-    } catch (error) {
-      console.error('Chat Error:', error);
-      res.status(500).json({ error: 'Chat service error' });
-    }
-  };
-  
+  baseURL: "https://openrouter.ai/api/v1", 
+  apiKey: process.env.OPENROUTER_API_KEY,  
+  defaultHeaders: {
+    "HTTP-Referer": process.env.SITE_URL,  // Set in .env
+    "X-Title": process.env.APP_NAME,       // Set in .env
+  }
+});
+
+exports.generateHealthTips = async (req, res) => {
+  try {
+    const user = req.user; // Now this contains full user details
+    console.log('User Details:', user);
+
+    const healthConditions = user.healthConditions.length > 0 ? user.healthConditions.join(', ') : 'none';
+    const fitnessGoals = user.fitnessGoals.length > 0 ? user.fitnessGoals.join(', ') : 'general fitness';
+
+    const completion = await openai.chat.completions.create({
+      model: "mistralai/mistral-small",
+      messages: [
+        {
+          role: "system",
+          content: "You are a professional health advisor. Provide personalized workout and diet suggestions."
+        },
+        {
+          role: "user",
+          content: `Generate health tips for a ${user.age}-year-old ${user.gender} with health conditions: ${healthConditions}. Fitness goals: ${fitnessGoals}.`
+        }
+      ]
+    });
+
+    res.json({ tips: completion.choices[0].message.content });
+  } catch (error) {
+    console.error('AI Error:', error);
+    res.status(500).json({ error: 'AI service error' });
+  }
+};
+
+exports.chatResponse = async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    const completion = await openai.chat.completions.create({
+      model: "mistralai/mistral-small",
+      messages: [
+        {
+          role: "system",
+          content: "You are a health assistant. Provide general, safe advice about health, workouts, and nutrition."
+        },
+        {
+          role: "user",
+          content: message
+        }
+      ]
+    });
+
+    const reply = completion.choices[0].message.content;
+
+    res.json({ reply });
+  } catch (error) {
+    console.error('Chat Error:', error);
+    res.status(500).json({ error: 'Chat service error' });
+  }
+};
 
 
 
