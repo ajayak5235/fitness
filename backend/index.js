@@ -16,9 +16,9 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.log(err));
 
 // Routes
-app.use('/', (req, res)=>{
-    res.send("Server is running")
-})
+// app.use('/', (req, res)=>{
+//     res.send("Server is running")
+// })
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/user', userRoutes);
